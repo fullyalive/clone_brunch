@@ -27,3 +27,6 @@ class Comment(models.Model):
     writer = models.ForeignKey(CustomUser, on_delete='CASCADE')
     contents = models.TextField()
     date = models.DateTimeField(default=timezone.now())
+
+    def __str__(self): # 오버라이딩하는 것이여
+        return self.contents
