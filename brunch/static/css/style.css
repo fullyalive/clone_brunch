@@ -1,12 +1,3 @@
-@font-face{
-    font-family: "NanumGothic";
-    src:url("static/fonts/NanumSquareRegular.ttf");
-}
-@font-face{
-    font-family: "NanumMyeongjo";
-    src:url("static/fonts/NanumMyeongjo.ttf");
-}
-
 * {
     -webkit-box-sizing: content-box;
     -moz-box-sizing: content-box;
@@ -15,9 +6,9 @@
 
 body{
     font-size: 13px;
-    font-family: NanumMyeongjo;
+    font-family: 'Nanum Myeongjo', serif;
 }
 
 #sidebar{
-    font-family: NanumGothic;
+    font-family: 'Nanum Gothic', sans-serif;
 }
