@@ -1,5 +1,12 @@
 from django.forms import ModelForm
-from .models import CustomUser
+from .models import Post, CustomUser
+
+
+class PostForm(ModelForm):
+    class Meta:
+        model = Post
+        fields = ['title', 'sub_title', 'contents']
+
 
 class CustomUserForm(ModelForm):
     class Meta:

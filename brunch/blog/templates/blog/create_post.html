@@ -1,0 +1,91 @@
+{% extends 'blog/base.html' %}
+{% load static %}
+{% block navbar %}
+<nav class="navbar navbar-light">
+    <a class="navbar-brand" href="#">
+        <i class="fas fa-bars" onclick="showOrHide()"></i>
+    </a>
+</nav>
+{% endblock navbar %}
+{% block sidebar %}
+<div class="h-100 text-center position-absolute" id="sidebar" style="display:none; z-index:999999; width: 25%;
+    ">
+    <div class="row">
+        <div class="col border pl-4" style="background-color: #f6f6f6">
+            <div class="profile" style="margin: 30px 0 0 0; padding: 0 0 20px 0;">
+                <img class="rounded-circle" src="{% static 'img/default_profile_img2.jpg' %}" alt="" style="width: 60px; height: 60px;">
+                <p class="font-weight-bold mt-4 text-dark" style="font-size: 1.2em">{{ user.name }}</p>
+                <p style="color: #cacaca">{{ user.email }}</p>
+                <button type="button" style="width: 80px;
+                    height: 32px;
+                    margin-top: 13px;
+                    border-radius: 16px;
+                    border: 1px solid #00c3bd;
+                    font-size: 13px;
+                    background-color: white;
+                    color: #00c3bd;"><a
+                        class="text-info" href="{% url 'create_post' %}">글쓰기</a></button>
+                <button type="button" style="width: 80px;
+                    height: 32px;
+                    margin-top: 13px;
+                    border-radius: 16px;
+                    border: 1px solid #00c3bd;
+                    font-size: 13px;
+                    background-color: white;
+                    color: #00c3bd;">작가신청</button>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col border-right border-bottom pl-4 bg-white">
+            <ul class="nav flex-column mt-4">
+                <li class="nav-item">
+                    <a class="nav-link text-dark" href="#">내 브런치</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-dark" href="#">작가의 서랍</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-dark" href="#">브런치 나우</a>
+                </li>
+            </ul>
+            <button type="button" style="width: 80px;
+                    height: 32px;
+                    margin-top: 30px;
+                    margin-bottom: 30px;
+                    border-radius: 16px;
+                    border: 1px solid #959595;
+                    font-size: 13px;
+                    background-color: white;
+                    color: #959595;"><a
+                    class="text-dark" href="{% url 'signout' %}">로그아웃</a></button>
+        </div>
+    </div>
+</div>
+{% endblock sidebar %}
+{% block content %}
+<div class="editor">
+    {{ form.errors }}
+    <form action="{% url 'create_post' %}" method="post">
+        {% csrf_token %}
+        <div class="cover mx-auto w-75">
+            <div class="input-group input-group-lg">
+                <input type="text" name="title" class="form-control border-0" aria-label="Sizing example input"
+                    aria-describedby="inputGroup-sizing-lg" value="{{ form.title.value|default_if_none:'제목을 입력하세요' }}"
+                    required>
+            </div>
+            <div class="input-group input-group-lg">
+                <input type="text" name="sub_title" class="form-control border-0" aria-label="Sizing example input"
+                    aria-describedby="inputGroup-sizing-lg" value="{{ form.sub_title.value|default_if_none:'소제목을 입력하세요' }}">
+            </div>
+        </div>
+        <hr>
+        <div class="post-body mx-auto w-75">
+            <div class="input-group">
+                <textarea rows="20" name="contents" class="form-control border-0" aria-label="With textarea" required>{{ form.contents.value|default_if_none:"" }}</textarea>
+            </div>
+            <button type="submit" class="btn btn-info mt-4 mb-4">Submit</button>
+        </div>
+    </form>
+</div>
+{% endblock content %}
