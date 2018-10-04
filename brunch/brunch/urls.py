@@ -25,5 +25,6 @@ urlpatterns = [
     path('signout/', views.signout, name='signout'),
     path('write/', views.create_post, name='create_post'),
     path('mypost/', views.my_post, name="my_post"),
-    # re_path(r'^(?P<post_id>[0-9]+)$', views.show_post, name='show_post'),
+    path('<int:post_id>/', views.show_post, name='show_post'),
+    # re_path(r'^(?P<post_id>[1-9]|[1-9][0-9]+)$', views.show_post, name='show_post'),
 ]

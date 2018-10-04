@@ -3,10 +3,32 @@
 {% block navbar %}
 <nav class="navbar navbar-light">
     <a class="navbar-brand" href="#">
+        {% if user.is_authenticated %}
         <i class="fas fa-bars" onclick="showOrHide()"></i>
+        {% else %}
+        <i class="fas fa-bars" onclick="alert('로그인 해주세요')"></i>
+        {% endif %}
     </a>
+    <a class="navbar-brand" href="{% url 'index' %}">
+        <img src="{% static 'img/logo.jpeg' %}" width="100" height="30" alt="">
+    </a>
+    {% if user.is_authenticated %}
+    <i class="fas fa-search"></i>
+    {% else %}
+    <button type="button" style="width: 60px;
+                    height: 32px;
+                    margin-top: 13px;
+                    border-radius: 16px;
+                    border: 1px solid #949797;
+                    font-size: 13px;
+                    background-color: white;
+                    color: #949797;"><a
+            class="text-secondary" href="{% url 'signin' %}">시작하기</a></button>
+    {% endif %}
+    <!-- <i class="fas fa-search"></i>     -->
 </nav>
 {% endblock navbar %}
+{% if user.is_authenticated %}
 {% block sidebar %}
 <div class="h-100 text-center position-absolute" id="sidebar" style="display:none; z-index:999999; width: 25%;
     ">
@@ -40,7 +62,7 @@
         <div class="col border-right border-bottom pl-4 bg-white">
             <ul class="nav flex-column mt-4">
                 <li class="nav-item">
-                    <a class="nav-link text-dark" href="#">내 브런치</a>
+                    <a class="nav-link text-dark" href="{% url 'my_post' %}">내 브런치</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link text-dark" href="#">작가의 서랍</a>
@@ -63,30 +85,18 @@
     </div>
 </div>
 {% endblock sidebar %}
+{% endif %}
 {% block content %}
-<div class="editor">
-    {{ form.errors }}
-    <form action="{% url 'create_post' %}" method="post">
-        {% csrf_token %}
-        <div class="cover mx-auto w-75">
-            <div class="input-group input-group-lg">
-                <input type="text" name="title" class="form-control border-0" aria-label="Sizing example input"
-                    aria-describedby="inputGroup-sizing-lg" value="{{ form.title.value|default_if_none:'제목을 입력하세요' }}"
-                    placeholder="제목을 입력하세요"
-                    required>
-            </div>
-            <div class="input-group input-group-lg">
-                <input type="text" name="sub_title" class="form-control border-0" aria-label="Sizing example input"
-                    aria-describedby="inputGroup-sizing-lg" value="{{ form.sub_title.value|default_if_none:'소제목을 입력하세요' }}">
-            </div>
+{% if post %}
+<div class="w-75 mx-auto mt-4">
+    <div class="card border-top-0 border-right-0 border-left-0 mt-4">
+        <div class="card-body">
+            <h1 class="card-title"><a href="{% url 'show_post' post_id=post.id %}" class="text-dark">{{ post.title }}</a></h1>
+            <h3 class="card-title text-secondary mt-4">{{ post.sub_title }}</a></h3>
+            <p class="card-text text-secondary mb-4">by {{ post.author.name }}</p>
+            <p class="card-text text-dark mt-4 mb-4">{{ post.contents }}</p>
         </div>
-        <hr>
-        <div class="post-body mx-auto w-75">
-            <div class="input-group">
-                <textarea rows="20" name="contents" class="form-control border-0" aria-label="With textarea" required>{{ form.contents.value|default_if_none:"" }}</textarea>
-            </div>
-            <button type="submit" class="btn btn-info mt-4 mb-4">Submit</button>
-        </div>
-    </form>
+    </div>
 </div>
+{% endif %}
 {% endblock content %}

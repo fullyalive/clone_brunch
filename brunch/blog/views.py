@@ -72,4 +72,9 @@ def my_post(request):
         return redirect('index')
 
     posts = Post.objects.filter(author=request.user.id).order_by('-date')
-    return render(request, 'blog/my_post.html', {'posts':posts})
+    return render(request, 'blog/my_post.html', {'posts': posts})
+
+
+def show_post(request, post_id):
+    post = Post.objects.get(id=post_id)
+    return render(request, 'blog/show_post.html', {'post': post})
