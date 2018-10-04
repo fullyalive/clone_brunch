@@ -94,7 +94,7 @@
             <h1 class="card-title"><a href="{% url 'show_post' post_id=post.id %}" class="text-dark">{{ post.title }}</a></h1>
             <h3 class="card-title text-secondary mt-4">{{ post.sub_title }}</a></h3>
             <p class="card-text text-secondary mb-4">by {{ post.author.name }}</p>
-            <p class="card-text text-dark mt-4 mb-4">{{ post.contents }}</p>
+            <p class="card-text text-dark mt-4 mb-4">{{ post.contents|safe }}</p> <!-- html tag를 string 쳐리하지 않고 parsing해주기 위해 |safe 입력-->
         </div>
     </div>
 </div>
