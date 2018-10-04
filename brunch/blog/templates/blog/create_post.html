@@ -83,7 +83,8 @@
         <hr>
         <div class="post-body mx-auto w-75">
             <div class="input-group">
-                <textarea rows="20" name="contents" class="form-control border-0" aria-label="With textarea" required>{{ form.contents.value|default_if_none:"" }}</textarea>
+                <!-- summernote 부르기 전 <textarea rows="20" name="contents" class="form-control border-0" aria-label="With textarea" required>{{ form.contents.value|default_if_none:"" }}</textarea> -->
+                {{ form.contents }} <!-- 서머노트 부르고 난 이후-->
             </div>
             <button type="submit" class="btn btn-info mt-4 mb-4">Submit</button>
         </div>
