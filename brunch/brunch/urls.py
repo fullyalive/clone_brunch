@@ -14,8 +14,10 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path, re_path
+from django.urls import path, re_path, include
 from blog import views
+from django.conf import settings
+from django.conf.urls.static import static
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -26,5 +28,11 @@ urlpatterns = [
     path('write/', views.create_post, name='create_post'),
     path('mypost/', views.my_post, name="my_post"),
     path('<int:post_id>/', views.show_post, name='show_post'),
+    path('summernote/', include('django_summernote.urls')),
     # re_path(r'^(?P<post_id>[1-9]|[1-9][0-9]+)$', views.show_post, name='show_post'),
 ]
+
+
+if settings.DEBUG:
+    urlpatterns += static(settings.MEDIA_URL,
+                        document_root=settings.MEDIA_ROOT)
