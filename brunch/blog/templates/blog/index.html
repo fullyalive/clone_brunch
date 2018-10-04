@@ -37,8 +37,9 @@
         <div class="col border pl-4" style="background-color: #f6f6f6">
             <div class="profile" style="margin: 30px 0 0 0; padding: 0 0 20px 0;">
                 <img class="rounded-circle" src="{% static 'img/default_profile_img2.jpg' %}" alt="" style="width: 60px; height: 60px;">
-                <p class="font-weight-bold mt-4 text-dark" style="font-size: 1.2em">김꿀꿀</p>
-                <p style="color: #cacaca">brunch.co.kr/@fullyalive</p>
+                <p class="font-weight-bold mt-4 text-dark" style="font-size: 1.2em">{{ user.name }}</p>
+                <p style="color: #cacaca">{{ user.email }}</p>
+                <p style="color: #cacaca">brunch.co.kr/@{{ user.name }}</p>
                 <button type="button" style="width: 80px;
                     height: 32px;
                     margin-top: 13px;
