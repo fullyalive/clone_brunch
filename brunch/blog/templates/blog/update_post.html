@@ -66,26 +66,23 @@
 {% block content %}
 <div class="editor">
     {{ form.errors }}
-    <form action="{% url 'create_post' %}" method="post">
+    <form action="{% url 'update_post' post_id=form.instance.id %}" method="post">
         {% csrf_token %}
         <div class="cover mx-auto w-75">
             <div class="input-group input-group-lg">
                 <input type="text" name="title" class="form-control border-0" aria-label="Sizing example input"
-                    aria-describedby="inputGroup-sizing-lg" value="{{ form.title.value|default_if_none:'' }}"
-                    placeholder="제목을 입력하세요"
+                    aria-describedby="inputGroup-sizing-lg" value="{{ form.title.value|default_if_none:'제목을 입력하세요' }}"
                     required>
             </div>
             <div class="input-group input-group-lg">
                 <input type="text" name="sub_title" class="form-control border-0" aria-label="Sizing example input"
-                    aria-describedby="inputGroup-sizing-lg" value="{{ form.sub_title.value|default_if_none:'' }}"
-                    placeholder="소제목을 입력하세요"
-                    >
+                    aria-describedby="inputGroup-sizing-lg" value="{{ form.sub_title.value|default_if_none:'소제목을 입력하세요' }}">
             </div>
         </div>
         <hr>
         <div class="post-body mx-auto w-75">
             <div class="input-group">
-                {{ form.contents}}
+                {{ form.contents }}
             </div>
             <button type="submit" class="btn btn-info mt-4 mb-4">Submit</button>
         </div>

@@ -1,6 +1,6 @@
 from django.forms import ModelForm
-from .models import Post, CustomUser
-from django_summernote.widgets import SummernoteWidget
+from django_summernote.widgets import SummernoteWidget, SummernoteInplaceWidget
+from .models import CustomUser, Post
 
 
 class PostForm(ModelForm):
@@ -9,10 +9,9 @@ class PostForm(ModelForm):
         fields = ['title', 'sub_title', 'contents']
         widgets = {
             'contents': SummernoteWidget(),
+            # 'contents': SummernoteInplaceWidget(),
         }
-
-
 class CustomUserForm(ModelForm):
     class Meta:
         model = CustomUser
-        fields = ['email', 'name', 'password']
+        fields = ['email','name','password']

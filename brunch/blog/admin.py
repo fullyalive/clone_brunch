@@ -1,12 +1,9 @@
 from django.contrib import admin
-from .models import Post, CustomUser, Comment
 from django_summernote.admin import SummernoteModelAdmin
+from .models import Post, CustomUser, Comment
 
-# Apply summernote to all TextField in model.
-class SomeModelAdmin(SummernoteModelAdmin):  # instead of ModelAdmin
+class PostModelAdmin(SummernoteModelAdmin):  
     summernote_fields = '__all__'
-
-
-admin.site.register(Post, SomeModelAdmin)
+admin.site.register(Post, PostModelAdmin)
 admin.site.register(CustomUser)
 admin.site.register(Comment)

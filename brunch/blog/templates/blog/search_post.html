@@ -1,0 +1,23 @@
+{% extends 'blog/base.html' %}
+{% load static %}
+
+
+{% block content %}
+<div class="w-75 mx-auto mt-4">
+    <p>작가의 작품을 검색해보세요.</p>
+    <form class="form-inline mt-2 mt-md-0">
+        <input class="form-control mr-sm-2" type="text" name='q' value="{{q}}" placeholder="검색어를 입력해주세요">
+        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">찾아보기</button>
+    </form>
+    <div class="w-75 mx-auto mt-4">
+        {% for post in posts %}
+        <div class="card border-top-0 border-right-0 border-left-0 mt-4">
+            <div class="card-body">
+                <h5 class="card-title"><a href="{% url 'show_post' post_id=post.id %}" class="text-dark">{{ post.title }}</a></h5>
+                <p class="card-text text-secondary mb-4">by {{ post.author.name }}</p>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock content %}

@@ -1,5 +1,6 @@
 {% extends 'blog/base.html' %}
 {% load static %}
+{% load humanize %}
 {% block navbar %}
 <nav class="navbar navbar-light">
     <a class="navbar-brand" href="#">
@@ -9,7 +10,7 @@
         <i class="fas fa-bars" onclick="alert('로그인 해주세요')"></i>
         {% endif %}
     </a>
-    <a class="navbar-brand" href="{% url 'index' %}">
+    <a class="navbar-brand" href="#">
         <img src="{% static 'img/logo.jpeg' %}" width="100" height="30" alt="">
     </a>
     {% if user.is_authenticated %}
@@ -94,8 +95,44 @@
             <h1 class="card-title"><a href="{% url 'show_post' post_id=post.id %}" class="text-dark">{{ post.title }}</a></h1>
             <h3 class="card-title text-secondary mt-4">{{ post.sub_title }}</a></h3>
             <p class="card-text text-secondary mb-4">by {{ post.author.name }}</p>
-            <p class="card-text text-dark mt-4 mb-4">{{ post.contents|safe }}</p> <!-- html tag를 string 쳐리하지 않고 parsing해주기 위해 |safe 입력-->
+            <p class="card-text text-dark mt-4 mb-4">{{ post.contents|safe }}</p>
+            {% if user == post.author %}
+            <a class="btn btn-outline-dark" href="{% url 'update_post' post_id=post.id %}">수정하기</a>
+            <a class="btn btn-outline-danger" href="{% url 'delete_post' post_id=post.id %}">삭제하기</a>
+            {% endif %}
+            <hr>
+            <div class="author-info">
+                <div class="row w-50 mx-auto">
+                    <img class="rounded-circle mx-auto mt-4" src="{% static 'img/default_profile_img2.jpg' %}" style="width: 80px; height: 80px;">
+                </div>
+                <p class="text-center text-dark font-weight-bold mb-2 mt-2">{{ post.author.name }}</p>
+                <div class="row w-50 mx-auto">
+                    <button class="mx-auto" type="button" style="width: 80px;
+                                        height: 32px;
+                                        margin-top: 13px;
+                                        border-radius: 16px;
+                                        border: 1px solid #00c3bd;
+                                        font-size: 13px;
+                                        background-color: white;"><a
+                            class="text-info" href="{% url 'subscribe' author_name=post.author.name %}">구독하기</a></button>
+                </div>
+            </div>
         </div>
+    </div>
+    <div class="card card-inner">
+        {% for comment in comments %}
+        <div class="card-body">
+            <div class="row">
+                <div class="col-md-2">
+                    <p><strong>{{comment.writer.name}}</strong></p>
+                    <p class="text-secondary text-center">{{comment.date|naturaltime}}</p>
+                </div>
+                <div class="col-md-10">
+                    <p>{{comment.contents}}</p>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
     </div>
 </div>
 {% endif %}
